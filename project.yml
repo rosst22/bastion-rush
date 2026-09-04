@@ -66,12 +66,23 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.rosstoma.BastionRushTests
         GENERATE_INFOPLIST_FILE: YES
+  BastionRushUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: [BastionRushUITests]
+    dependencies:
+      - target: BastionRush
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.rosstoma.BastionRushUITests
+        GENERATE_INFOPLIST_FILE: YES
 schemes:
   BastionRush:
     build:
       targets:
         BastionRush: all
         BastionRushTests: [test]
+        BastionRushUITests: [test]
     run:
       config: Debug
       storeKitConfiguration: StoreKit/BastionRush.storekit
@@ -79,5 +90,6 @@ schemes:
       config: Debug
       targets:
         - BastionRushTests
+        - BastionRushUITests
     archive:
       config: Release

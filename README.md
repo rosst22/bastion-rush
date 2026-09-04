@@ -82,7 +82,7 @@ xcodebuild -project BastionRush.xcodeproj \
   test
 ```
 
-The test suite covers upgrade-cost progression and run reward/score rules. The checked-in screenshots were captured from the built iPhone 17 Pro simulator app, not design mockups.
+The test suite covers aiming, recruit-to-veteran difficulty scaling, upgrade/reward rules, and a UI regression test that forces a loss and verifies **Run It Back** creates fresh gameplay. The checked-in screenshots were captured from the built iPhone 17 Pro simulator app, not design mockups.
 
 ## Project map
 

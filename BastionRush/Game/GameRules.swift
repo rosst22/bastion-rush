@@ -8,8 +8,30 @@ struct BattleConfiguration: Equatable {
     let skin: SquadSkin
     let hapticsEnabled: Bool
 
-    var fortressHealth: Double { 250 + Double(level) * 30 }
-    var enemyHealthMultiplier: Double { 1 + Double(level) * 0.12 }
+    var isRecruitRun: Bool { level < 2 }
+    var fortressHealth: Double {
+        switch level {
+        case 0: 165
+        case 1: 205
+        default: 235 + Double(level) * 28
+        }
+    }
+    var enemyHealthMultiplier: Double {
+        switch level {
+        case 0: 0.72
+        case 1: 0.88
+        default: 1 + Double(level - 2) * 0.10
+        }
+    }
+    var baseFireLaneWidth: Double { level == 0 ? 100 : (level == 1 ? 86 : 72) }
+    var waveInterval: Double { max(2.05, (level == 0 ? 3.7 : 3.25) - Double(level) * 0.06) }
+    var baseWaveCount: Int { level == 0 ? 2 : 3 }
+    var maxWaveCount: Int { level == 0 ? 6 : min(10, 7 + level) }
+    var shooterStride: Int { level == 0 ? 3 : (level == 1 ? 2 : 1) }
+    var projectileDamage: Double { level == 0 ? 0.65 : min(1.15, 0.82 + Double(level) * 0.06) }
+    var hazardDamage: Double { level == 0 ? 1.25 : min(2.3, 1.6 + Double(level) * 0.08) }
+    var contactDamagePerSecond: Double { level == 0 ? 1.05 : min(1.8, 1.35 + Double(level) * 0.06) }
+    var enemyFireInterval: Double { max(1.15, level == 0 ? 2.65 : 2.15 - Double(level) * 0.04) }
 }
 
 struct BattleHUD: Equatable {
@@ -53,7 +75,7 @@ enum GameRules {
     }
 
     static func reward(didWin: Bool, defeated: Int, remaining: Int) -> Int {
-        max(5, defeated * 2 + remaining + (didWin ? 35 : 0))
+        max(didWin ? 35 : 12, defeated * 2 + remaining + (didWin ? 35 : 0))
     }
 
     static func score(didWin: Bool, defeated: Int, remaining: Int) -> Int {

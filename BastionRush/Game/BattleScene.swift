@@ -3,6 +3,9 @@ import UIKit
 
 @MainActor
 final class BattleScene: SKScene {
+    #if DEBUG
+    private static var hasUsedDebugInstantDefeat = false
+    #endif
     var onHUDChange: ((BattleHUD) -> Void)?
     var onFinished: ((RunResult) -> Void)?
 
@@ -36,7 +39,7 @@ final class BattleScene: SKScene {
     private let rallyCooldown: TimeInterval = 10
 
     private var isRallying: Bool { elapsed - lastRallyTime < rallyDuration }
-    private var fireLaneWidth: CGFloat { isRallying ? 150 : 68 }
+    private var fireLaneWidth: CGFloat { isRallying ? 160 : CGFloat(configuration.baseFireLaneWidth) }
 
     init(size: CGSize, configuration: BattleConfiguration) {
         self.configuration = configuration
@@ -166,10 +169,20 @@ final class BattleScene: SKScene {
         guard delta > 0 else { return }
         elapsed += delta
 
+        #if DEBUG
+        if ProcessInfo.processInfo.arguments.contains("-instantDefeat"),
+           !Self.hasUsedDebugInstantDefeat,
+           elapsed > 0.6 {
+            Self.hasUsedDebugInstantDefeat = true
+            finish(win: false)
+            return
+        }
+        #endif
+
         scrollWorld(by: CGFloat(115 * delta))
         if elapsed >= nextWaveTime && elapsed < runDuration - 4 {
             spawnWave()
-            nextWaveTime += max(1.9, 3.1 - Double(configuration.level) * 0.08)
+            nextWaveTime += configuration.waveInterval
         }
         if elapsed >= nextGateTime && elapsed < runDuration - 6 {
             spawnGatePair()
@@ -205,7 +218,10 @@ final class BattleScene: SKScene {
     }
 
     private func spawnWave() {
-        let count = min(10, 3 + Int(elapsed / 6) + configuration.level / 3)
+        let count = min(
+            configuration.maxWaveCount,
+            configuration.baseWaveCount + Int(elapsed / (configuration.isRecruitRun ? 9 : 6)) + configuration.level / 3
+        )
         let centerX = CGFloat.random(in: 72...(size.width - 72))
         for index in 0..<count {
             let enemy = makeSoldier(color: UIColor(red: 0.91, green: 0.20, blue: 0.24, alpha: 1), enemy: true)
@@ -215,7 +231,8 @@ final class BattleScene: SKScene {
             enemy.userData = [
                 "health": health,
                 "maxHealth": health,
-                "nextShot": elapsed + Double.random(in: 0.5...1.8)
+                "nextShot": elapsed + Double.random(in: 0.8...2.0),
+                "canShoot": index.isMultiple(of: configuration.shooterStride)
             ]
             if isHeavy { enemy.setScale(1.22) }
             enemy.addChild(makeHealthBar(width: isHeavy ? 28 : 23))
@@ -457,16 +474,20 @@ final class BattleScene: SKScene {
         }
 
         for enemy in enemies where enemy.position.y > squad.position.y + 95 && enemy.position.y < size.height - 70 {
+            guard enemy.userData?["canShoot"] as? Bool == true else { continue }
             let nextShot = enemy.userData?["nextShot"] as? Double ?? 0
             if elapsed >= nextShot {
-                spawnEnemyProjectile(from: enemy.position, damage: 1)
-                let interval = max(1.05, 2.05 - Double(configuration.level) * 0.045)
-                enemy.userData?["nextShot"] = elapsed + interval + Double.random(in: 0...0.65)
+                spawnEnemyProjectile(from: enemy.position, damage: configuration.projectileDamage)
+                enemy.userData?["nextShot"] = elapsed + configuration.enemyFireInterval + Double.random(in: 0...0.65)
             }
         }
 
-        if let fortress, fortress.position.y < size.height - 90, elapsed - lastFortressShotTime > 0.9 {
-            spawnEnemyProjectile(from: CGPoint(x: fortress.position.x + (Bool.random() ? -size.width * 0.29 : size.width * 0.29), y: fortress.position.y), damage: 1.35)
+        let fortressFireInterval = configuration.isRecruitRun ? 1.4 : 0.9
+        if let fortress, fortress.position.y < size.height - 90, elapsed - lastFortressShotTime > fortressFireInterval {
+            spawnEnemyProjectile(
+                from: CGPoint(x: fortress.position.x + (Bool.random() ? -size.width * 0.29 : size.width * 0.29), y: fortress.position.y),
+                damage: configuration.projectileDamage * 1.25
+            )
             lastFortressShotTime = elapsed
         }
 
@@ -474,7 +495,7 @@ final class BattleScene: SKScene {
             abs($0.position.y - squad.position.y) < 58 && abs($0.position.x - squad.position.x) < 105
         }
         if !attackers.isEmpty {
-            squadHealth -= Double(attackers.count) * delta * (1.65 - configuration.damageResistance)
+            squadHealth -= Double(attackers.count) * delta * configuration.contactDamagePerSecond * (1 - configuration.damageResistance)
             let priorCount = soldiers.count
             if Int(ceil(squadHealth)) != priorCount {
                 rebuildSquad()
@@ -555,7 +576,7 @@ final class BattleScene: SKScene {
         for hazard in world.children.filter({ $0.name == "hazard" }) {
             guard abs(hazard.position.y - squad.position.y) < 28 else { continue }
             if abs(hazard.position.x - squad.position.x) < 62 {
-                squadHealth -= 2.2 * (1 - configuration.damageResistance)
+                squadHealth -= configuration.hazardDamage * (1 - configuration.damageResistance)
                 emitImpact(at: hazard.position, color: UIColor(red: 1, green: 0.35, blue: 0.12, alpha: 1), count: 14)
                 flashStatus("MINE HIT — MOVE!")
                 rebuildSquad()

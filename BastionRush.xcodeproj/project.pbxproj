@@ -14,6 +14,7 @@
 		548F75A05ABCE227A386ADDA /* PlayerProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8FCBDA4A527E7AB43F9FEC /* PlayerProgress.swift */; };
 		59C78CFE75F8424ABC711D31 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3FE21FF30943E094908749 /* HomeView.swift */; };
 		7688C8A1DADDB50C2C84A013 /* LegalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400F2BCBBF42622E2AEB707A /* LegalView.swift */; };
+		8204488B705BE857850D6077 /* ReplayUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2950536304CAB7FB1ADC007F /* ReplayUITests.swift */; };
 		8429E4B3311EA85AB9924CCD /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A558BFF86C9BD860253FA609 /* RootView.swift */; };
 		8CB79DEF68760200193FDC70 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9240C697AE172221F0FDED1C /* Theme.swift */; };
 		9266CBE49ADFDD53521C584D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E84330E8431284024432995 /* Assets.xcassets */; };
@@ -35,11 +36,19 @@
 			remoteGlobalIDString = 15FA4804C1A649C1951292D2;
 			remoteInfo = BastionRush;
 		};
+		E106B5C1FA538F8FE64F8847 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8411B99921125D1E77AC268 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 15FA4804C1A649C1951292D2;
+			remoteInfo = BastionRush;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		0F3FE21FF30943E094908749 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		28FF7E3A9648A9A2F4146263 /* BattleScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleScene.swift; sourceTree = "<group>"; };
+		2950536304CAB7FB1ADC007F /* ReplayUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplayUITests.swift; sourceTree = "<group>"; };
 		3AF33CF232E774F419AC1117 /* BastionRushTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = BastionRushTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		400F2BCBBF42622E2AEB707A /* LegalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalView.swift; sourceTree = "<group>"; };
 		5296B1C0DB14B521DA7AB9C6 /* PurchaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseService.swift; sourceTree = "<group>"; };
@@ -55,6 +64,7 @@
 		DB8FCBDA4A527E7AB43F9FEC /* PlayerProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerProgress.swift; sourceTree = "<group>"; };
 		E71BD31BB6DB73D817F29D2A /* BastionRush.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = BastionRush.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E985C8A8E3316E4023389B23 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		EE1519975778299E18C69AEB /* BastionRushUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = BastionRushUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F528DD04E7995DC53F90F338 /* BastionRushApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BastionRushApp.swift; sourceTree = "<group>"; };
 		F9ABF8E7AB769E1D05DE8107 /* GameRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRules.swift; sourceTree = "<group>"; };
 		FCD4FFE97BA1487557294BE1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -81,11 +91,20 @@
 			path = App;
 			sourceTree = "<group>";
 		};
+		281F8E53625DD499EBD57C8B /* BastionRushUITests */ = {
+			isa = PBXGroup;
+			children = (
+				2950536304CAB7FB1ADC007F /* ReplayUITests.swift */,
+			);
+			path = BastionRushUITests;
+			sourceTree = "<group>";
+		};
 		5FC928821F11D419644F893A = {
 			isa = PBXGroup;
 			children = (
 				892519291EE0A22A9965D951 /* BastionRush */,
 				937D4F7D7508CE769D7B21DD /* BastionRushTests */,
+				281F8E53625DD499EBD57C8B /* BastionRushUITests */,
 				CEB14A6C46B0519E4C5C0E85 /* Config */,
 				AD877AC32D1353E7023488FD /* Products */,
 			);
@@ -125,6 +144,7 @@
 			children = (
 				E71BD31BB6DB73D817F29D2A /* BastionRush.app */,
 				3AF33CF232E774F419AC1117 /* BastionRushTests.xctest */,
+				EE1519975778299E18C69AEB /* BastionRushUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -219,6 +239,24 @@
 			productReference = 3AF33CF232E774F419AC1117 /* BastionRushTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		EA7F732AA6BAB08DDCE87DFC /* BastionRushUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 88DABD0D3DA775B3209DB242 /* Build configuration list for PBXNativeTarget "BastionRushUITests" */;
+			buildPhases = (
+				6621E5CE155A9A3C72547666 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				065E369541A088121E721A58 /* PBXTargetDependency */,
+			);
+			name = BastionRushUITests;
+			packageProductDependencies = (
+			);
+			productName = BastionRushUITests;
+			productReference = EE1519975778299E18C69AEB /* BastionRushUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -235,6 +273,11 @@
 					E64947325022F739775D07BC = {
 						DevelopmentTeam = FMQ2H9F8WV;
 						ProvisioningStyle = Automatic;
+					};
+					EA7F732AA6BAB08DDCE87DFC = {
+						DevelopmentTeam = FMQ2H9F8WV;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 15FA4804C1A649C1951292D2;
 					};
 				};
 			};
@@ -257,6 +300,7 @@
 			targets = (
 				15FA4804C1A649C1951292D2 /* BastionRush */,
 				E64947325022F739775D07BC /* BastionRushTests */,
+				EA7F732AA6BAB08DDCE87DFC /* BastionRushUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -295,6 +339,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6621E5CE155A9A3C72547666 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8204488B705BE857850D6077 /* ReplayUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		69A662E5FCFE98294266BA98 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -306,6 +358,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		065E369541A088121E721A58 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 15FA4804C1A649C1951292D2 /* BastionRush */;
+			targetProxy = E106B5C1FA538F8FE64F8847 /* PBXContainerItemProxy */;
+		};
 		3A5B9B7AC701A68BDA8EF171 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 15FA4804C1A649C1951292D2 /* BastionRush */;
@@ -331,6 +388,23 @@
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		4C3398B19D3687CA15D4940F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.rosstoma.BastionRushUITests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = BastionRush;
 			};
 			name = Release;
 		};
@@ -447,6 +521,23 @@
 			};
 			name = Debug;
 		};
+		9A6D50963E2E61215DA763F1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.rosstoma.BastionRushUITests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = BastionRush;
+			};
+			name = Debug;
+		};
 		BE25F9C9D1E1698408E86F62 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -536,6 +627,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		88DABD0D3DA775B3209DB242 /* Build configuration list for PBXNativeTarget "BastionRushUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9A6D50963E2E61215DA763F1 /* Debug */,
+				4C3398B19D3687CA15D4940F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
 		A05E2B152D08B99FDCC81316 /* Build configuration list for PBXNativeTarget "BastionRushTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

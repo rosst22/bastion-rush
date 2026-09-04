@@ -18,6 +18,8 @@ struct GameView: View {
     )
     @State private var result: RunResult?
     @State private var didRecordResult = false
+    @State private var runID = UUID()
+    @State private var sceneSize: CGSize = .zero
 
     var body: some View {
         GeometryReader { proxy in
@@ -25,6 +27,8 @@ struct GameView: View {
                 AppTheme.navy.ignoresSafeArea()
                 if let scene {
                     SpriteView(scene: scene, options: [.ignoresSiblingOrder])
+                        .id(runID)
+                        .accessibilityIdentifier("gameplaySurface")
                         .ignoresSafeArea()
                 }
                 VStack(spacing: 10) {
@@ -52,9 +56,11 @@ struct GameView: View {
                 }
             }
             .onAppear {
+                sceneSize = proxy.size
                 if scene == nil { createScene(size: proxy.size) }
             }
             .onChange(of: proxy.size) { _, newSize in
+                sceneSize = newSize
                 scene?.size = newSize
             }
         }
@@ -146,10 +152,12 @@ struct GameView: View {
     }
 
     private func restart() {
-        result = nil
+        scene?.onHUDChange = nil
+        scene?.onFinished = nil
         didRecordResult = false
-        scene = nil
-        createScene(size: UIScreen.main.bounds.size)
+        runID = UUID()
+        createScene(size: sceneSize == .zero ? UIScreen.main.bounds.size : sceneSize)
+        withAnimation(.easeOut(duration: 0.18)) { result = nil }
     }
 }
 
@@ -181,6 +189,7 @@ private struct ResultCard: View {
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 14)
             }
+            .accessibilityIdentifier("runItBackButton")
             .buttonStyle(.plain)
             .background(AppTheme.cobalt, in: RoundedRectangle(cornerRadius: 16))
             Button("Back to Base", action: onHome)

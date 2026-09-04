@@ -35,6 +35,20 @@
                ReferencedContainer = "container:BastionRush.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "EA7F732AA6BAB08DDCE87DFC"
+               BuildableName = "BastionRushUITests.xctest"
+               BlueprintName = "BastionRushUITests"
+               ReferencedContainer = "container:BastionRush.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -61,6 +75,17 @@
                BlueprintIdentifier = "E64947325022F739775D07BC"
                BuildableName = "BastionRushTests.xctest"
                BlueprintName = "BastionRushTests"
+               ReferencedContainer = "container:BastionRush.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "EA7F732AA6BAB08DDCE87DFC"
+               BuildableName = "BastionRushUITests.xctest"
+               BlueprintName = "BastionRushUITests"
                ReferencedContainer = "container:BastionRush.xcodeproj">
             </BuildableReference>
          </TestableReference>
