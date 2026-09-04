@@ -8,6 +8,7 @@ struct GameView: View {
     @State private var hud = BattleHUD(
         squadCount: 0,
         score: 0,
+        coinsEarned: 0,
         progress: 0,
         bossHealthFraction: nil,
         statusText: nil,
@@ -81,8 +82,10 @@ struct GameView: View {
                     .font(.headline.weight(.heavy))
                     .contentTransition(.numericText())
                 Spacer()
-                Text("\(hud.score)")
+                Label("\(hud.coinsEarned)", systemImage: "hexagon.fill")
                     .font(.system(.headline, design: .rounded, weight: .heavy))
+                    .foregroundStyle(AppTheme.gold)
+                    .contentTransition(.numericText())
                     .frame(minWidth: 54, alignment: .trailing)
             }
             ProgressView(value: hud.bossHealthFraction ?? hud.progress)

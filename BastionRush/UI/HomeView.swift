@@ -68,7 +68,7 @@ struct HomeView: View {
                 squadFormation
             }
             VStack(spacing: 4) {
-                Text(progress.wins == 0 ? "FIRST DEPLOYMENT" : "SECTOR \(progress.wins + 1)")
+                Text("LEVEL \(progress.wins + 1)")
                     .font(.caption.weight(.black)).foregroundStyle(AppTheme.cyan).tracking(1.8)
                 Text(progress.wins == 0 ? "Hold the line." : "The enemy adapted. So did you.")
                     .font(.subheadline).foregroundStyle(.secondary)

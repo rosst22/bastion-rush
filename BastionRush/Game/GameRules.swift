@@ -37,6 +37,7 @@ struct BattleConfiguration: Equatable {
 struct BattleHUD: Equatable {
     var squadCount: Int
     var score: Int
+    var coinsEarned: Int
     var progress: Double
     var bossHealthFraction: Double?
     var statusText: String?
@@ -44,6 +45,49 @@ struct BattleHUD: Equatable {
     var isRallying: Bool
     var threatPresent: Bool
     var targetAligned: Bool
+}
+
+enum EnemyKind: String, Equatable, Hashable {
+    case rifleman
+    case scout
+    case shield
+    case brute
+
+    var baseHealth: Double {
+        switch self {
+        case .rifleman: 15
+        case .scout: 10
+        case .shield: 27
+        case .brute: 44
+        }
+    }
+
+    var coinReward: Int {
+        switch self {
+        case .rifleman: 2
+        case .scout: 3
+        case .shield: 5
+        case .brute: 10
+        }
+    }
+
+    var contactMultiplier: Double {
+        switch self {
+        case .rifleman: 1
+        case .scout: 0.75
+        case .shield: 1.15
+        case .brute: 1.65
+        }
+    }
+
+    var projectileMultiplier: Double {
+        switch self {
+        case .rifleman: 1
+        case .scout: 0.72
+        case .shield: 0
+        case .brute: 1.15
+        }
+    }
 }
 
 enum GateReward: Equatable {
@@ -74,8 +118,26 @@ enum GameRules {
         35 + level * level * 18 + level * 22
     }
 
-    static func reward(didWin: Bool, defeated: Int, remaining: Int) -> Int {
-        max(didWin ? 35 : 12, defeated * 2 + remaining + (didWin ? 35 : 0))
+    static func defenderRoster(level: Int, elapsed: Double, count: Int, brutesSpawned: Int) -> [EnemyKind] {
+        let bruteStart = max(11, 20 - Double(level) * 2)
+        let bruteLimit = 1 + level / 2
+
+        return (0..<count).map { index in
+            if index == count - 1, elapsed >= bruteStart, brutesSpawned < bruteLimit {
+                return .brute
+            }
+            if level >= 2, index % 4 == 2 {
+                return .shield
+            }
+            if level >= 1, index % 3 == 1 {
+                return .scout
+            }
+            return .rifleman
+        }
+    }
+
+    static func reward(didWin: Bool, killCoins: Int, remaining: Int) -> Int {
+        killCoins + remaining + (didWin ? 35 : 12)
     }
 
     static func score(didWin: Bool, defeated: Int, remaining: Int) -> Int {

@@ -8,13 +8,32 @@ struct GameRulesTests {
     }
 
     @Test func winningPaysABonus() {
-        let loss = GameRules.reward(didWin: false, defeated: 10, remaining: 3)
-        let win = GameRules.reward(didWin: true, defeated: 10, remaining: 3)
-        #expect(win - loss == 35)
+        let loss = GameRules.reward(didWin: false, killCoins: 20, remaining: 3)
+        let win = GameRules.reward(didWin: true, killCoins: 20, remaining: 3)
+        #expect(win - loss == 23)
     }
 
     @Test func earlyLossStillFundsProgress() {
-        #expect(GameRules.reward(didWin: false, defeated: 0, remaining: 0) == 12)
+        #expect(GameRules.reward(didWin: false, killCoins: 0, remaining: 0) == 12)
+    }
+
+    @Test func everyKillCoinIsIncludedInThePayout() {
+        let noKills = GameRules.reward(didWin: false, killCoins: 0, remaining: 2)
+        let mixedKills = GameRules.reward(didWin: false, killCoins: 17, remaining: 2)
+        #expect(mixedKills - noKills == 17)
+    }
+
+    @Test func defenderTypesUnlockAsLevelsAdvance() {
+        let levelOneEarly = GameRules.defenderRoster(level: 0, elapsed: 8, count: 5, brutesSpawned: 0)
+        let levelOneLate = GameRules.defenderRoster(level: 0, elapsed: 23, count: 5, brutesSpawned: 0)
+        let levelThree = GameRules.defenderRoster(level: 2, elapsed: 23, count: 8, brutesSpawned: 0)
+
+        #expect(Set(levelOneEarly) == [.rifleman])
+        #expect(levelOneLate.filter { $0 == .brute }.count == 1)
+        #expect(levelThree.contains(.scout))
+        #expect(levelThree.contains(.shield))
+        #expect(levelThree.contains(.brute))
+        #expect(EnemyKind.brute.coinReward > EnemyKind.rifleman.coinReward)
     }
 
     @Test func scoreRewardsSurvivors() {
