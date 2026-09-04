@@ -18,6 +18,8 @@ settings:
     INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.strategy-games
     INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
     INFOPLIST_KEY_UILaunchScreen_Generation: YES
+    INFOPLIST_KEY_UIRequiresFullScreen: YES
+    INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
     TARGETED_DEVICE_FAMILY: 1
   configs:
     Debug:
