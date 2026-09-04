@@ -16,7 +16,7 @@ Build your squad, choose your upgrades, and break the fortress in fast tactical 
 
 The line is moving. Make every choice count.
 
-Bastion Rush is a fast, one-thumb squad tactics game built for short, satisfying runs. Drag to steer your platoon, choose between reinforcements and firepower, survive escalating enemy formations, and focus your remaining strength on the final fortress.
+Bastion Rush is a fast, one-thumb squad tactics game built for short, satisfying runs. Drag to steer your platoon, line enemies up inside your firing lane, dodge incoming rounds, choose between reinforcements and firepower, and focus your remaining strength on the final fortress.
 
 EVERY GATE IS A DECISION
 Grow your squad for staying power or multiply its damage for a faster push. Your route changes how the run plays.
@@ -26,6 +26,9 @@ Earn coins by defeating enemies and completing runs. Invest them in starting tro
 
 SHORT RUNS, REAL PROGRESSION
 Each deployment takes under a minute, while permanent upgrades and increasing difficulty create a longer tactical arc.
+
+TIME YOUR RALLY
+Trigger Rally when its meter is full to widen your firing lane and boost damage during the most dangerous moments.
 
 FAIR BY DESIGN
 No ads. No loot boxes. No required account. The optional Commander Pack contains cosmetics only.

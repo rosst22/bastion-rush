@@ -5,7 +5,17 @@ struct GameView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(PlayerProgress.self) private var progress
     @State private var scene: BattleScene?
-    @State private var hud = BattleHUD(squadCount: 0, score: 0, progress: 0, bossHealthFraction: nil, statusText: nil)
+    @State private var hud = BattleHUD(
+        squadCount: 0,
+        score: 0,
+        progress: 0,
+        bossHealthFraction: nil,
+        statusText: nil,
+        rallyCharge: 1,
+        isRallying: false,
+        threatPresent: false,
+        targetAligned: false
+    )
     @State private var result: RunResult?
     @State private var didRecordResult = false
 
@@ -23,6 +33,16 @@ struct GameView: View {
                 }
                 .padding(.horizontal, 18)
                 .padding(.top, 8)
+
+                VStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        rallyButton
+                    }
+                }
+                .padding(.trailing, 20)
+                .padding(.bottom, 28)
 
                 if let result {
                     Color.black.opacity(0.62).ignoresSafeArea()
@@ -68,8 +88,39 @@ struct GameView: View {
                     .font(.caption2.weight(.black))
                     .foregroundStyle(AppTheme.coral)
             }
+            if hud.threatPresent {
+                Label(hud.targetAligned ? "TARGET LOCK" : "ALIGN WITH TARGET", systemImage: hud.targetAligned ? "scope" : "arrow.left.and.right")
+                    .font(.system(size: 10, weight: .black, design: .rounded))
+                    .foregroundStyle(hud.targetAligned ? AppTheme.gold : .white.opacity(0.56))
+            }
         }
         .foregroundStyle(.white)
+    }
+
+    private var rallyButton: some View {
+        Button {
+            scene?.activateRally()
+        } label: {
+            ZStack {
+                Circle().fill(.black.opacity(0.58)).frame(width: 72, height: 72)
+                Circle()
+                    .trim(from: 0, to: hud.rallyCharge)
+                    .stroke(hud.isRallying ? AppTheme.gold : AppTheme.cyan, style: StrokeStyle(lineWidth: 5, lineCap: .round))
+                    .rotationEffect(.degrees(-90))
+                    .frame(width: 68, height: 68)
+                VStack(spacing: 1) {
+                    Image(systemName: hud.isRallying ? "bolt.fill" : "scope")
+                        .font(.title3.weight(.black))
+                    Text(hud.isRallying ? "ACTIVE" : "RALLY")
+                        .font(.system(size: 8, weight: .black, design: .rounded))
+                }
+                .foregroundStyle(hud.rallyCharge >= 1 ? .white : .white.opacity(0.4))
+            }
+        }
+        .buttonStyle(.plain)
+        .disabled(hud.rallyCharge < 1 || hud.isRallying || result != nil)
+        .accessibilityLabel("Activate Rally")
+        .accessibilityValue(hud.rallyCharge >= 1 ? "Ready" : "Recharging")
     }
 
     private func createScene(size: CGSize) {

@@ -12,10 +12,12 @@ struct SettingsView: View {
         NavigationStack {
             List {
                 Section("How to Play") {
-                    helpRow("hand.draw.fill", "Drag left and right to steer the squad.")
+                    helpRow("hand.draw.fill", "Drag to steer and align enemies inside the firing lane.")
                     helpRow("arrow.triangle.branch", "Cross one side of each gate; the other choice disappears.")
-                    helpRow("scope", "Your soldiers fire automatically at the closest target.")
-                    helpRow("shield.lefthalf.filled", "Keep enough soldiers alive to break the fortress.")
+                    helpRow("scope", "Shots only damage aligned targets; yellow means target lock.")
+                    helpRow("arrow.left.and.right", "Dodge glowing enemy rounds and mine clusters.")
+                    helpRow("bolt.fill", "Use Rally when charged for a wider lane and faster fire.")
+                    helpRow("shield.lefthalf.filled", "Align with the fortress weak point to finish the run.")
                 }
                 Section("Game") {
                     Toggle(isOn: $hapticsEnabled) { Label("Haptics", systemImage: "waveform") }

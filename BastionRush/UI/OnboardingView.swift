@@ -5,9 +5,10 @@ struct OnboardingView: View {
     @State private var page = 0
 
     private let pages = [
-        OnboardingPage(symbol: "hand.draw.fill", title: "Lead the Line", detail: "Drag anywhere to steer your squad. They advance and fire automatically.", color: AppTheme.cyan),
+        OnboardingPage(symbol: "hand.draw.fill", title: "Lead the Line", detail: "Drag anywhere to steer. Line enemies up inside your squad’s forward firing lane.", color: AppTheme.cyan),
         OnboardingPage(symbol: "arrow.triangle.branch", title: "Make the Call", detail: "Every gate is a tradeoff: grow the squad now, or multiply its firepower.", color: AppTheme.gold),
-        OnboardingPage(symbol: "shield.lefthalf.filled", title: "Break the Bastion", detail: "Keep soldiers alive through each wave, then concentrate fire on the fortress.", color: AppTheme.coral)
+        OnboardingPage(symbol: "scope", title: "Dodge and Rally", detail: "Enemy rounds keep their course—move out of the way. Tap Rally for a wider, faster firing lane.", color: AppTheme.coral),
+        OnboardingPage(symbol: "shield.lefthalf.filled", title: "Break the Bastion", detail: "Keep soldiers alive, then align with the fortress weak point and concentrate fire.", color: AppTheme.gold)
     ]
 
     var body: some View {

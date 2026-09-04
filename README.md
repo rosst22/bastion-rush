@@ -10,13 +10,16 @@ A portrait, one-thumb squad tactics game for iPhone. Steer a growing platoon thr
 
 <p align="center">
   <img src="docs/screenshots/onboarding.png" width="240" alt="Bastion Rush onboarding">
-  <img src="docs/screenshots/gameplay.png" width="240" alt="Bastion Rush tactical gate gameplay">
+  <img src="docs/screenshots/gameplay-v2.png" width="240" alt="Bastion Rush firing-lane combat gameplay">
   <img src="docs/screenshots/result.png" width="240" alt="Bastion Rush victory result">
 </p>
 
 ## Why this version is different
 
 - Decisions affect the current run; gates are not random visual noise.
+- Shots only connect inside the visible firing lane, making positioning matter.
+- Enemy projectiles and mines are telegraphed, dodgeable threats.
+- Rally is a player-triggered ability with a real cooldown and tactical timing.
 - Runs earn persistent upgrades without requiring a purchase.
 - The only in-app purchase is a cosmetic lifetime Commander Pack.
 - No ads, login, analytics, location, or tracking.
@@ -24,7 +27,7 @@ A portrait, one-thumb squad tactics game for iPhone. Steer a growing platoon thr
 
 ## Engineering highlights
 
-- Runs a real-time combat simulation with a frame-delta game loop, procedural wave scheduling, target selection, damage resolution, and boss-state transitions.
+- Runs a real-time combat simulation with a frame-delta game loop, aim-lane targeting, dodgeable projectile trajectories, procedural waves, hazards, damage resolution, and boss-state transitions.
 - Bridges imperative SpriteKit gameplay into declarative SwiftUI while keeping persistent progression outside the scene.
 - Uses Swift's Observation framework for shared game and purchase state.
 - Integrates RevenueCat through Swift Package Manager with entitlement-driven cosmetic unlocks and a complete restore flow.

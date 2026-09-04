@@ -16,4 +16,9 @@ struct GameRulesTests {
     @Test func scoreRewardsSurvivors() {
         #expect(GameRules.score(didWin: false, defeated: 5, remaining: 4) == 700)
     }
+
+    @Test func shotsOnlyHitTargetsInsideTheFireLane() {
+        #expect(GameRules.isTargetAligned(squadX: 200, targetX: 238, laneWidth: 68, targetPadding: 10))
+        #expect(!GameRules.isTargetAligned(squadX: 200, targetX: 260, laneWidth: 68, targetPadding: 10))
+    }
 }

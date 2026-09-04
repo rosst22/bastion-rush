@@ -8,8 +8,8 @@ struct BattleConfiguration: Equatable {
     let skin: SquadSkin
     let hapticsEnabled: Bool
 
-    var fortressHealth: Double { 150 + Double(level) * 18 }
-    var enemyHealthMultiplier: Double { 1 + Double(level) * 0.08 }
+    var fortressHealth: Double { 250 + Double(level) * 30 }
+    var enemyHealthMultiplier: Double { 1 + Double(level) * 0.12 }
 }
 
 struct BattleHUD: Equatable {
@@ -18,6 +18,10 @@ struct BattleHUD: Equatable {
     var progress: Double
     var bossHealthFraction: Double?
     var statusText: String?
+    var rallyCharge: Double
+    var isRallying: Bool
+    var threatPresent: Bool
+    var targetAligned: Bool
 }
 
 enum GateReward: Equatable {
@@ -40,6 +44,10 @@ enum GateReward: Equatable {
 }
 
 enum GameRules {
+    static func isTargetAligned(squadX: Double, targetX: Double, laneWidth: Double, targetPadding: Double) -> Bool {
+        abs(targetX - squadX) <= laneWidth / 2 + targetPadding
+    }
+
     static func upgradeCost(level: Int) -> Int {
         35 + level * level * 18 + level * 22
     }
