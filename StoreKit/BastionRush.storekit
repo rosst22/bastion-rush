@@ -1,0 +1,38 @@
+{
+  "identifier" : "DE82DA71-D3DB-4B63-844D-3DF79118B120",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "3.99",
+      "familyShareable" : false,
+      "internalID" : "6A5A5FA7-5F55-4F83-80E9-7874C0BC64D0",
+      "localizations" : [
+        {
+          "description" : "Unlock Ember and Ivory squad colors and the Founding Commander badge.",
+          "displayName" : "Commander Pack",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.rosstoma.bastionrush.commanderpack",
+      "referenceName" : "Commander Pack",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_failTransactionsEnabled" : false,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
+    "_storeKitErrors" : [
+
+    ]
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}

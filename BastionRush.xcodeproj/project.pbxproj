@@ -1,0 +1,584 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		15E312F95F59B50FF44D22A9 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD4FFE97BA1487557294BE1 /* SettingsView.swift */; };
+		36A98CFB905A0A84A32DB26D /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD28ACF103C7948EB9976EA /* PaywallView.swift */; };
+		460FBCF023D74818CEA1FCAC /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C8A8E3316E4023389B23 /* GameView.swift */; };
+		4EDC8B664A13E084D5AF7A72 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF1BC9DFFB7C5A446D3B722 /* OnboardingView.swift */; };
+		548F75A05ABCE227A386ADDA /* PlayerProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8FCBDA4A527E7AB43F9FEC /* PlayerProgress.swift */; };
+		59C78CFE75F8424ABC711D31 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3FE21FF30943E094908749 /* HomeView.swift */; };
+		7688C8A1DADDB50C2C84A013 /* LegalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400F2BCBBF42622E2AEB707A /* LegalView.swift */; };
+		8429E4B3311EA85AB9924CCD /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A558BFF86C9BD860253FA609 /* RootView.swift */; };
+		8CB79DEF68760200193FDC70 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9240C697AE172221F0FDED1C /* Theme.swift */; };
+		9266CBE49ADFDD53521C584D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E84330E8431284024432995 /* Assets.xcassets */; };
+		97A7599E667C06617709A74F /* BattleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FF7E3A9648A9A2F4146263 /* BattleScene.swift */; };
+		9DED88145D95EA6C77895653 /* PurchaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5296B1C0DB14B521DA7AB9C6 /* PurchaseService.swift */; };
+		B5E7EF4B5E7A5636ED1B5502 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = D06D3FE02A5D44B258DAA79E /* PrivacyInfo.xcprivacy */; };
+		B7A9E197F6EABA246D71F862 /* GameRulesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC122D0C664C86DA19FE2FB /* GameRulesTests.swift */; };
+		D20957FCC9171D05AA0BA4AA /* ArmoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6716783566CED86235C2E6 /* ArmoryView.swift */; };
+		D963B7A4A3944B25B36F6C6C /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = 7C8189EEC9A992C455B4ADE3 /* RevenueCat */; };
+		E665BD384EB95CA911BCBE3D /* BastionRushApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F528DD04E7995DC53F90F338 /* BastionRushApp.swift */; };
+		E720253A29C14FC89D9793AB /* GameRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9ABF8E7AB769E1D05DE8107 /* GameRules.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5BF7D1F6C88F6A58DC89F369 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8411B99921125D1E77AC268 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 15FA4804C1A649C1951292D2;
+			remoteInfo = BastionRush;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0F3FE21FF30943E094908749 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		28FF7E3A9648A9A2F4146263 /* BattleScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleScene.swift; sourceTree = "<group>"; };
+		3AF33CF232E774F419AC1117 /* BastionRushTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = BastionRushTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		400F2BCBBF42622E2AEB707A /* LegalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalView.swift; sourceTree = "<group>"; };
+		5296B1C0DB14B521DA7AB9C6 /* PurchaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseService.swift; sourceTree = "<group>"; };
+		5DF1BC9DFFB7C5A446D3B722 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		5E84330E8431284024432995 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		71F0A7C75731C4955F2683DA /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		7DC122D0C664C86DA19FE2FB /* GameRulesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRulesTests.swift; sourceTree = "<group>"; };
+		9240C697AE172221F0FDED1C /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		9A6716783566CED86235C2E6 /* ArmoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArmoryView.swift; sourceTree = "<group>"; };
+		A558BFF86C9BD860253FA609 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		BFD28ACF103C7948EB9976EA /* PaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallView.swift; sourceTree = "<group>"; };
+		D06D3FE02A5D44B258DAA79E /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		DB8FCBDA4A527E7AB43F9FEC /* PlayerProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerProgress.swift; sourceTree = "<group>"; };
+		E71BD31BB6DB73D817F29D2A /* BastionRush.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = BastionRush.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E985C8A8E3316E4023389B23 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		F528DD04E7995DC53F90F338 /* BastionRushApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BastionRushApp.swift; sourceTree = "<group>"; };
+		F9ABF8E7AB769E1D05DE8107 /* GameRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRules.swift; sourceTree = "<group>"; };
+		FCD4FFE97BA1487557294BE1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6B9E9C52FA8A01E5D5871607 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D963B7A4A3944B25B36F6C6C /* RevenueCat in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		11F2C24A28F3CB12FFE22AAD /* App */ = {
+			isa = PBXGroup;
+			children = (
+				F528DD04E7995DC53F90F338 /* BastionRushApp.swift */,
+				A558BFF86C9BD860253FA609 /* RootView.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		5FC928821F11D419644F893A = {
+			isa = PBXGroup;
+			children = (
+				892519291EE0A22A9965D951 /* BastionRush */,
+				937D4F7D7508CE769D7B21DD /* BastionRushTests */,
+				CEB14A6C46B0519E4C5C0E85 /* Config */,
+				AD877AC32D1353E7023488FD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6485FF669AD0C23CCFFAF713 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				5296B1C0DB14B521DA7AB9C6 /* PurchaseService.swift */,
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
+		892519291EE0A22A9965D951 /* BastionRush */ = {
+			isa = PBXGroup;
+			children = (
+				11F2C24A28F3CB12FFE22AAD /* App */,
+				DF9F1BADE12DB688EA5AF80A /* Game */,
+				DA0D216C06C62C575F81986D /* Models */,
+				BEA017CDF520496122464404 /* Resources */,
+				6485FF669AD0C23CCFFAF713 /* Store */,
+				E22E1AEA9A78002A90ED94C8 /* UI */,
+			);
+			path = BastionRush;
+			sourceTree = "<group>";
+		};
+		937D4F7D7508CE769D7B21DD /* BastionRushTests */ = {
+			isa = PBXGroup;
+			children = (
+				7DC122D0C664C86DA19FE2FB /* GameRulesTests.swift */,
+			);
+			path = BastionRushTests;
+			sourceTree = "<group>";
+		};
+		AD877AC32D1353E7023488FD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E71BD31BB6DB73D817F29D2A /* BastionRush.app */,
+				3AF33CF232E774F419AC1117 /* BastionRushTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BEA017CDF520496122464404 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5E84330E8431284024432995 /* Assets.xcassets */,
+				D06D3FE02A5D44B258DAA79E /* PrivacyInfo.xcprivacy */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		CEB14A6C46B0519E4C5C0E85 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				71F0A7C75731C4955F2683DA /* Config.xcconfig */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		DA0D216C06C62C575F81986D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DB8FCBDA4A527E7AB43F9FEC /* PlayerProgress.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		DF9F1BADE12DB688EA5AF80A /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				28FF7E3A9648A9A2F4146263 /* BattleScene.swift */,
+				F9ABF8E7AB769E1D05DE8107 /* GameRules.swift */,
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
+		E22E1AEA9A78002A90ED94C8 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				9A6716783566CED86235C2E6 /* ArmoryView.swift */,
+				E985C8A8E3316E4023389B23 /* GameView.swift */,
+				0F3FE21FF30943E094908749 /* HomeView.swift */,
+				400F2BCBBF42622E2AEB707A /* LegalView.swift */,
+				5DF1BC9DFFB7C5A446D3B722 /* OnboardingView.swift */,
+				BFD28ACF103C7948EB9976EA /* PaywallView.swift */,
+				FCD4FFE97BA1487557294BE1 /* SettingsView.swift */,
+				9240C697AE172221F0FDED1C /* Theme.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		15FA4804C1A649C1951292D2 /* BastionRush */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F9FA3FFA413FAF22EC5AA8E6 /* Build configuration list for PBXNativeTarget "BastionRush" */;
+			buildPhases = (
+				029FC0EA69ECC115572C64B8 /* Sources */,
+				0D691336F08A69C5AC86B972 /* Resources */,
+				6B9E9C52FA8A01E5D5871607 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BastionRush;
+			packageProductDependencies = (
+				7C8189EEC9A992C455B4ADE3 /* RevenueCat */,
+			);
+			productName = BastionRush;
+			productReference = E71BD31BB6DB73D817F29D2A /* BastionRush.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E64947325022F739775D07BC /* BastionRushTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A05E2B152D08B99FDCC81316 /* Build configuration list for PBXNativeTarget "BastionRushTests" */;
+			buildPhases = (
+				69A662E5FCFE98294266BA98 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3A5B9B7AC701A68BDA8EF171 /* PBXTargetDependency */,
+			);
+			name = BastionRushTests;
+			packageProductDependencies = (
+			);
+			productName = BastionRushTests;
+			productReference = 3AF33CF232E774F419AC1117 /* BastionRushTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F8411B99921125D1E77AC268 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 2600;
+				TargetAttributes = {
+					15FA4804C1A649C1951292D2 = {
+						DevelopmentTeam = FMQ2H9F8WV;
+						ProvisioningStyle = Automatic;
+					};
+					E64947325022F739775D07BC = {
+						DevelopmentTeam = FMQ2H9F8WV;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = ECAE41AC0A4E2DC590586CA8 /* Build configuration list for PBXProject "BastionRush" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 5FC928821F11D419644F893A;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				643676A5707048037C02CC3D /* XCRemoteSwiftPackageReference "purchases-ios-spm" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = AD877AC32D1353E7023488FD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				15FA4804C1A649C1951292D2 /* BastionRush */,
+				E64947325022F739775D07BC /* BastionRushTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0D691336F08A69C5AC86B972 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9266CBE49ADFDD53521C584D /* Assets.xcassets in Resources */,
+				B5E7EF4B5E7A5636ED1B5502 /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		029FC0EA69ECC115572C64B8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D20957FCC9171D05AA0BA4AA /* ArmoryView.swift in Sources */,
+				E665BD384EB95CA911BCBE3D /* BastionRushApp.swift in Sources */,
+				97A7599E667C06617709A74F /* BattleScene.swift in Sources */,
+				E720253A29C14FC89D9793AB /* GameRules.swift in Sources */,
+				460FBCF023D74818CEA1FCAC /* GameView.swift in Sources */,
+				59C78CFE75F8424ABC711D31 /* HomeView.swift in Sources */,
+				7688C8A1DADDB50C2C84A013 /* LegalView.swift in Sources */,
+				4EDC8B664A13E084D5AF7A72 /* OnboardingView.swift in Sources */,
+				36A98CFB905A0A84A32DB26D /* PaywallView.swift in Sources */,
+				548F75A05ABCE227A386ADDA /* PlayerProgress.swift in Sources */,
+				9DED88145D95EA6C77895653 /* PurchaseService.swift in Sources */,
+				8429E4B3311EA85AB9924CCD /* RootView.swift in Sources */,
+				15E312F95F59B50FF44D22A9 /* SettingsView.swift in Sources */,
+				8CB79DEF68760200193FDC70 /* Theme.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		69A662E5FCFE98294266BA98 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B7A9E197F6EABA246D71F862 /* GameRulesTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3A5B9B7AC701A68BDA8EF171 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 15FA4804C1A649C1951292D2 /* BastionRush */;
+			targetProxy = 5BF7D1F6C88F6A58DC89F369 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		314667B63B05F1C5A6200460 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 71F0A7C75731C4955F2683DA /* Config.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_REVENUECAT_API_KEY = "$(REVENUECAT_API_KEY)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.rosstoma.BastionRush;
+				PRODUCT_NAME = BastionRush;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		53264030B042F1CEB4145D66 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.rosstoma.BastionRushTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BastionRush.app/BastionRush";
+			};
+			name = Release;
+		};
+		5975680A4DCFF88C91056BE8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = FMQ2H9F8WV;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Bastion Rush";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.strategy-games";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		7626257648BAB86C54DE89FE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 71F0A7C75731C4955F2683DA /* Config.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_REVENUECAT_API_KEY = "$(REVENUECAT_API_KEY)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.rosstoma.BastionRush;
+				PRODUCT_NAME = BastionRush;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BE25F9C9D1E1698408E86F62 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = FMQ2H9F8WV;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Bastion Rush";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.strategy-games";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		C93BDDC20A4BC044ECA7274A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.rosstoma.BastionRushTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BastionRush.app/BastionRush";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A05E2B152D08B99FDCC81316 /* Build configuration list for PBXNativeTarget "BastionRushTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C93BDDC20A4BC044ECA7274A /* Debug */,
+				53264030B042F1CEB4145D66 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		ECAE41AC0A4E2DC590586CA8 /* Build configuration list for PBXProject "BastionRush" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5975680A4DCFF88C91056BE8 /* Debug */,
+				BE25F9C9D1E1698408E86F62 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F9FA3FFA413FAF22EC5AA8E6 /* Build configuration list for PBXNativeTarget "BastionRush" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7626257648BAB86C54DE89FE /* Debug */,
+				314667B63B05F1C5A6200460 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		643676A5707048037C02CC3D /* XCRemoteSwiftPackageReference "purchases-ios-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7C8189EEC9A992C455B4ADE3 /* RevenueCat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 643676A5707048037C02CC3D /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
+			productName = RevenueCat;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = F8411B99921125D1E77AC268 /* Project object */;
+}
