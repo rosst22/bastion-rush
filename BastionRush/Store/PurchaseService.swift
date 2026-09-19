@@ -20,7 +20,11 @@ final class PurchaseService {
     static func configureIfPossible() {
         guard isConfigured,
               let key = Bundle.main.object(forInfoDictionaryKey: "REVENUECAT_API_KEY") as? String else { return }
-        Purchases.logLevel = _isDebugAssertConfiguration() ? .debug : .info
+        #if DEBUG
+        Purchases.logLevel = .debug
+        #else
+        Purchases.logLevel = .info
+        #endif
         Purchases.configure(withAPIKey: key)
     }
 
