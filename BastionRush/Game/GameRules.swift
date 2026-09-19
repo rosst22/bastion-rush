@@ -11,14 +11,14 @@ struct BattleConfiguration: Equatable {
     var isRecruitRun: Bool { level < 2 }
     var fortressHealth: Double {
         switch level {
-        case 0: 165
+        case 0: 145
         case 1: 205
         default: 235 + Double(level) * 28
         }
     }
     var enemyHealthMultiplier: Double {
         switch level {
-        case 0: 0.72
+        case 0: 0.66
         case 1: 0.88
         default: 1 + Double(level - 2) * 0.10
         }
@@ -28,9 +28,9 @@ struct BattleConfiguration: Equatable {
     var baseWaveCount: Int { level == 0 ? 2 : 3 }
     var maxWaveCount: Int { level == 0 ? 6 : min(10, 7 + level) }
     var shooterStride: Int { level == 0 ? 3 : (level == 1 ? 2 : 1) }
-    var projectileDamage: Double { level == 0 ? 0.65 : min(1.15, 0.82 + Double(level) * 0.06) }
-    var hazardDamage: Double { level == 0 ? 1.25 : min(2.3, 1.6 + Double(level) * 0.08) }
-    var contactDamagePerSecond: Double { level == 0 ? 1.05 : min(1.8, 1.35 + Double(level) * 0.06) }
+    var projectileDamage: Double { level == 0 ? 0.55 : min(1.15, 0.82 + Double(level) * 0.06) }
+    var hazardDamage: Double { level == 0 ? 1.0 : min(2.3, 1.6 + Double(level) * 0.08) }
+    var contactDamagePerSecond: Double { level == 0 ? 0.9 : min(1.8, 1.35 + Double(level) * 0.06) }
     var enemyFireInterval: Double { max(1.15, level == 0 ? 2.65 : 2.15 - Double(level) * 0.04) }
 }
 

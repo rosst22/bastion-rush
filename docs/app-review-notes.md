@@ -4,7 +4,7 @@ Bastion Rush is a single-player, portrait squad tactics game. No account or logi
 
 To reach the in-app purchase:
 
-1. Complete or skip through the three onboarding pages.
+1. Complete the four onboarding pages.
 2. On the home screen, tap the “Commander Pack” banner near the bottom.
 3. The paywall clearly identifies a one-time purchase and includes Restore Purchases, Privacy, and Terms.
 

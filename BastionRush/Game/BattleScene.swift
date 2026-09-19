@@ -21,7 +21,7 @@ final class BattleScene: SKScene {
     private var elapsed: TimeInterval = 0
     private var lastUpdateTime: TimeInterval = 0
     private var nextWaveTime: TimeInterval = 2.6
-    private var nextGateTime: TimeInterval = 1.1
+    private var nextGateTime: TimeInterval = 0.25
     private var nextHazardTime: TimeInterval = 7.4
     private var lastWaveSpawnTime: TimeInterval = -100
     private var gateClearUntil: TimeInterval = 0
@@ -32,6 +32,8 @@ final class BattleScene: SKScene {
     private var score = 0
     private var killCoins = 0
     private var brutesSpawned = 0
+    private var gatesSpawned = 0
+    private var announcedEnemyKinds: Set<EnemyKind> = []
     private var fortress: SKNode?
     private var fortressHealth: Double = 0
     private var didFinish = false
@@ -240,6 +242,7 @@ final class BattleScene: SKScene {
             count: count,
             brutesSpawned: brutesSpawned
         )
+        announceNewEnemyType(in: roster)
         if roster.contains(.brute) { brutesSpawned += 1 }
         let centerX = CGFloat.random(in: 72...(size.width - 72))
         for (index, kind) in roster.enumerated() {
@@ -256,13 +259,19 @@ final class BattleScene: SKScene {
                 "contactMultiplier": kind.contactMultiplier,
                 "projectileMultiplier": kind.projectileMultiplier
             ]
-            enemy.addChild(makeHealthBar(width: kind == .brute ? 32 : (kind == .shield ? 27 : 23)))
+            let healthBar = makeHealthBar(width: kind == .brute ? 36 : (kind == .shield ? 27 : 23))
+            if kind == .brute { healthBar.position.y = 52 }
+            enemy.addChild(healthBar)
             let column = index % 3
             let row = index / 3
-            enemy.position = CGPoint(
-                x: min(max(42, centerX + CGFloat(column - 1) * 32), size.width - 42),
-                y: size.height + 50 + CGFloat(row) * 40
-            )
+            if kind == .brute {
+                enemy.position = CGPoint(x: centerX, y: size.height + 95 + CGFloat(row) * 40)
+            } else {
+                enemy.position = CGPoint(
+                    x: min(max(42, centerX + CGFloat(column - 1) * 32), size.width - 42),
+                    y: size.height + 50 + CGFloat(row) * 40
+                )
+            }
             world.addChild(enemy)
         }
     }
@@ -302,19 +311,35 @@ final class BattleScene: SKScene {
     }
 
     private func spawnGatePair() {
+        let isOpeningGate = gatesSpawned == 0
+        gatesSpawned += 1
         let pair = SKNode()
         pair.name = "gatePair"
-        pair.position = CGPoint(x: size.width / 2, y: size.height + 90)
+        pair.position = CGPoint(
+            x: size.width / 2,
+            y: isOpeningGate ? size.height * 0.72 : size.height + 90
+        )
         pair.userData = ["used": false]
 
-        let recruitCount = 3 + Int(elapsed / 10)
+        if isOpeningGate {
+            let instruction = SKLabelNode(fontNamed: "AvenirNext-Heavy")
+            instruction.text = "CHOOSE YOUR BOOST"
+            instruction.fontSize = 14
+            instruction.fontColor = UIColor.white.withAlphaComponent(0.9)
+            instruction.position.y = 68
+            pair.addChild(instruction)
+        }
+
+        let recruitCount = 4 + Int(elapsed / 10)
         let left = makeGate(reward: .recruits(recruitCount), color: UIColor(red: 0.08, green: 0.66, blue: 0.92, alpha: 1))
+        left.name = "leftGate"
         left.position.x = -(size.width - 54) / 4
         left.userData = ["kind": "recruits", "value": recruitCount]
         pair.addChild(left)
 
         let multiplier = elapsed > 16 ? 1.5 : 1.3
         let right = makeGate(reward: .damage(multiplier), color: UIColor(red: 0.96, green: 0.61, blue: 0.12, alpha: 1))
+        right.name = "rightGate"
         right.position.x = (size.width - 54) / 4
         right.userData = ["kind": "damage", "value": multiplier]
         pair.addChild(right)
@@ -365,7 +390,8 @@ final class BattleScene: SKScene {
             guard abs(pair.position.y - squad.position.y) < 18,
                   pair.userData?["used"] as? Bool == false else { continue }
             pair.userData?["used"] = true
-            let chosen = squad.position.x < size.width / 2 ? pair.children[0] : pair.children[1]
+            let chosenName = squad.position.x < size.width / 2 ? "leftGate" : "rightGate"
+            guard let chosen = pair.childNode(withName: chosenName) else { continue }
             let kind = chosen.userData?["kind"] as? String
             if kind == "recruits", let count = chosen.userData?["value"] as? Int {
                 squadHealth += Double(count)
@@ -378,7 +404,9 @@ final class BattleScene: SKScene {
                 impact(.rigid)
             }
             chosen.run(.sequence([.scale(to: 1.14, duration: 0.08), .fadeOut(withDuration: 0.22)]))
-            for other in pair.children where other !== chosen { other.alpha = 0.15 }
+            for other in pair.children where other.name == "leftGate" || other.name == "rightGate" {
+                if other !== chosen { other.alpha = 0.15 }
+            }
         }
     }
 
@@ -677,7 +705,7 @@ final class BattleScene: SKScene {
         case .ivory: UIColor(red: 0.92, green: 0.90, blue: 0.78, alpha: 1)
         }
         for index in 0..<count {
-            let soldier = makeSoldier(color: color, enemy: false)
+            let soldier = makeSoldier(color: color, enemy: false, walkCadence: 0.27)
             let row = Int(sqrt(Double(index)))
             let rowStart = row * row
             let positionInRow = index - rowStart
@@ -698,7 +726,10 @@ final class BattleScene: SKScene {
         case .shield: UIColor(red: 0.68, green: 0.12, blue: 0.24, alpha: 1)
         case .brute: UIColor(red: 0.48, green: 0.07, blue: 0.10, alpha: 1)
         }
-        let enemy = makeSoldier(color: color, enemy: true)
+        if kind == .brute { return makeBrute(color: color) }
+
+        let cadence: TimeInterval = kind == .scout ? 0.15 : (kind == .shield ? 0.34 : 0.23)
+        let enemy = makeSoldier(color: color, enemy: true, walkCadence: cadence)
 
         switch kind {
         case .rifleman:
@@ -717,6 +748,7 @@ final class BattleScene: SKScene {
             signal.position = CGPoint(x: 7, y: 28)
             signal.glowWidth = 2
             enemy.addChild(signal)
+            addEnemyTag("SCOUT", color: color, to: enemy)
         case .shield:
             enemy.setScale(1.08)
             let shieldPath = CGMutablePath()
@@ -733,27 +765,14 @@ final class BattleScene: SKScene {
             shield.position = CGPoint(x: 0, y: 1)
             shield.zPosition = 4
             enemy.addChild(shield)
+            addEnemyTag("GUARD", color: color, to: enemy)
         case .brute:
-            enemy.setScale(1.42)
-            for direction in [-1.0, 1.0] {
-                let shoulder = SKShapeNode(circleOfRadius: 7)
-                shoulder.fillColor = color
-                shoulder.strokeColor = .clear
-                shoulder.position = CGPoint(x: direction * 11, y: 1)
-                shoulder.zPosition = 3
-                enemy.addChild(shoulder)
-            }
-            let badge = SKLabelNode(fontNamed: "AvenirNext-Heavy")
-            badge.text = "BRUTE"
-            badge.fontSize = 7
-            badge.fontColor = UIColor(red: 1, green: 0.66, blue: 0.22, alpha: 1)
-            badge.position.y = 35
-            enemy.addChild(badge)
+            break
         }
         return enemy
     }
 
-    private func makeSoldier(color: UIColor, enemy: Bool) -> SKNode {
+    private func makeSoldier(color: UIColor, enemy: Bool, walkCadence: TimeInterval) -> SKNode {
         let node = SKNode()
         let shadow = SKShapeNode(ellipseOf: CGSize(width: 24, height: 10))
         shadow.fillColor = UIColor.black.withAlphaComponent(0.32)
@@ -763,7 +782,9 @@ final class BattleScene: SKScene {
         node.addChild(shadow)
 
         for direction in [-1.0, 1.0] {
+            let side = direction < 0 ? "left" : "right"
             let leg = SKShapeNode(rectOf: CGSize(width: 7, height: 19), cornerRadius: 3.5)
+            leg.name = "\(side)Leg"
             leg.fillColor = color
             leg.strokeColor = .clear
             leg.position = CGPoint(x: direction * 4.5, y: -16)
@@ -771,6 +792,7 @@ final class BattleScene: SKScene {
             node.addChild(leg)
 
             let arm = SKShapeNode(rectOf: CGSize(width: 6, height: 21), cornerRadius: 3)
+            arm.name = "\(side)Arm"
             arm.fillColor = color
             arm.strokeColor = .clear
             arm.position = CGPoint(x: direction * 11.5, y: 0)
@@ -779,18 +801,21 @@ final class BattleScene: SKScene {
         }
 
         let torso = SKShapeNode(rectOf: CGSize(width: 21, height: 24), cornerRadius: 8)
+        torso.name = "torso"
         torso.fillColor = color
         torso.strokeColor = .clear
         torso.position.y = 0.5
         node.addChild(torso)
 
         let head = SKShapeNode(circleOfRadius: 9)
+        head.name = "head"
         head.position.y = 20
         head.fillColor = color
         head.strokeColor = .clear
         node.addChild(head)
 
         let weapon = SKShapeNode(rectOf: CGSize(width: 3, height: 18), cornerRadius: 1.5)
+        weapon.name = "weapon"
         weapon.position = CGPoint(x: enemy ? -10 : 10, y: enemy ? -7 : 7)
         weapon.fillColor = .darkGray
         weapon.strokeColor = .clear
@@ -798,10 +823,130 @@ final class BattleScene: SKScene {
         let muzzle = SKShapeNode(circleOfRadius: 2)
         muzzle.fillColor = UIColor(red: 1, green: 0.69, blue: 0.16, alpha: 0.9)
         muzzle.strokeColor = .clear
+        muzzle.name = "muzzle"
         muzzle.position = CGPoint(x: enemy ? -10 : 10, y: enemy ? -17 : 17)
         node.addChild(muzzle)
         node.zPosition = enemy ? 5 : 10
+        addWalkAnimation(to: node, cadence: walkCadence)
         return node
+    }
+
+    private func makeBrute(color: UIColor) -> SKNode {
+        let node = SKNode()
+        let shadow = SKShapeNode(ellipseOf: CGSize(width: 58, height: 18))
+        shadow.fillColor = UIColor.black.withAlphaComponent(0.45)
+        shadow.strokeColor = .clear
+        shadow.position.y = -27
+        shadow.zPosition = -2
+        node.addChild(shadow)
+
+        for direction in [-1.0, 1.0] {
+            let side = direction < 0 ? "left" : "right"
+            let leg = SKShapeNode(rectOf: CGSize(width: 12, height: 29), cornerRadius: 6)
+            leg.name = "\(side)Leg"
+            leg.fillColor = color
+            leg.strokeColor = .clear
+            leg.position = CGPoint(x: direction * 10, y: -20)
+            node.addChild(leg)
+
+            let arm = SKShapeNode(rectOf: CGSize(width: 12, height: 36), cornerRadius: 6)
+            arm.name = "\(side)Arm"
+            arm.fillColor = color
+            arm.strokeColor = .clear
+            arm.position = CGPoint(x: direction * 25, y: 0)
+            arm.zRotation = direction * -0.22
+            node.addChild(arm)
+
+            let claw = SKShapeNode(circleOfRadius: 8)
+            claw.fillColor = color
+            claw.strokeColor = .clear
+            claw.position = CGPoint(x: direction * 30, y: -18)
+            node.addChild(claw)
+
+            let hornPath = CGMutablePath()
+            hornPath.move(to: CGPoint(x: 0, y: 0))
+            hornPath.addLine(to: CGPoint(x: direction * 13, y: 13))
+            hornPath.addLine(to: CGPoint(x: direction * 5, y: -4))
+            hornPath.closeSubpath()
+            let horn = SKShapeNode(path: hornPath)
+            horn.fillColor = color
+            horn.strokeColor = .clear
+            horn.position = CGPoint(x: direction * 8, y: 37)
+            node.addChild(horn)
+        }
+
+        let torso = SKShapeNode(rectOf: CGSize(width: 44, height: 39), cornerRadius: 13)
+        torso.name = "torso"
+        torso.fillColor = color
+        torso.strokeColor = .clear
+        torso.position.y = 1
+        node.addChild(torso)
+
+        let head = SKShapeNode(ellipseOf: CGSize(width: 30, height: 25))
+        head.name = "head"
+        head.fillColor = color
+        head.strokeColor = .clear
+        head.position.y = 31
+        node.addChild(head)
+
+        for direction in [-1.0, 1.0] {
+            let eye = SKShapeNode(circleOfRadius: 3)
+            eye.fillColor = UIColor(red: 1, green: 0.64, blue: 0.08, alpha: 1)
+            eye.strokeColor = .clear
+            eye.glowWidth = 4
+            eye.position = CGPoint(x: direction * 6, y: 32)
+            node.addChild(eye)
+        }
+        let mouth = SKShapeNode(rectOf: CGSize(width: 15, height: 3), cornerRadius: 1.5)
+        mouth.fillColor = UIColor.black.withAlphaComponent(0.7)
+        mouth.strokeColor = .clear
+        mouth.position.y = 24
+        node.addChild(mouth)
+
+        let badge = SKLabelNode(fontNamed: "AvenirNext-Heavy")
+        badge.text = "BRUTE"
+        badge.fontSize = 8
+        badge.fontColor = UIColor(red: 1, green: 0.66, blue: 0.22, alpha: 1)
+        badge.position.y = 52
+        node.addChild(badge)
+
+        node.setScale(1.25)
+        node.zPosition = 6
+        addWalkAnimation(to: node, cadence: 0.38)
+        return node
+    }
+
+    private func addEnemyTag(_ text: String, color: UIColor, to enemy: SKNode) {
+        let tag = SKLabelNode(fontNamed: "AvenirNext-Heavy")
+        tag.text = text
+        tag.fontSize = 7
+        tag.fontColor = color.lighter()
+        tag.position.y = 39
+        enemy.addChild(tag)
+    }
+
+    private func addWalkAnimation(to node: SKNode, cadence: TimeInterval) {
+        let phase = Double.random(in: 0...(cadence * 2))
+        for side in ["left", "right"] {
+            let leading = side == "left"
+            let legAngles: [CGFloat] = leading ? [-0.24, 0.24, -0.24] : [0.24, -0.24, 0.24]
+            let armAngles: [CGFloat] = leading ? [0.20, -0.20, 0.20] : [-0.20, 0.20, -0.20]
+            let legSwing = SKAction.sequence(legAngles.map { .rotate(toAngle: $0, duration: cadence) })
+            let armSwing = SKAction.sequence(armAngles.map { .rotate(toAngle: $0, duration: cadence) })
+            node.childNode(withName: "\(side)Leg")?.run(.sequence([.wait(forDuration: phase), .repeatForever(legSwing)]))
+            node.childNode(withName: "\(side)Arm")?.run(.sequence([.wait(forDuration: phase), .repeatForever(armSwing)]))
+        }
+
+        let bob = SKAction.sequence([
+            .moveBy(x: 0, y: 1.5, duration: cadence),
+            .moveBy(x: 0, y: -1.5, duration: cadence)
+        ])
+        node.childNode(withName: "torso")?.run(.repeatForever(bob))
+        node.childNode(withName: "head")?.run(.repeatForever(bob.reversed()))
+        node.childNode(withName: "weapon")?.run(.repeatForever(.sequence([
+            .rotate(toAngle: 0.10, duration: cadence),
+            .rotate(toAngle: -0.10, duration: cadence)
+        ])))
     }
 
     private func makeHealthBar(width: CGFloat) -> SKNode {
@@ -821,6 +966,18 @@ final class BattleScene: SKScene {
         fill.strokeColor = .clear
         bar.addChild(fill)
         return bar
+    }
+
+    private func announceNewEnemyType(in roster: [EnemyKind]) {
+        guard let kind = roster.first(where: { $0 != .rifleman && !announcedEnemyKinds.contains($0) }) else { return }
+        announcedEnemyKinds.insert(kind)
+        let message: String = switch kind {
+        case .rifleman: "RIFLEMEN INBOUND"
+        case .scout: "SCOUTS — QUICK SHOTS"
+        case .shield: "GUARDS — BREAK THEIR SHIELDS"
+        case .brute: "BRUTE INBOUND — WORTH 10 COINS"
+        }
+        flashStatus(message)
     }
 
     private func flashStatus(_ text: String) {
@@ -859,7 +1016,16 @@ final class BattleScene: SKScene {
         let remaining = max(0, Int(ceil(squadHealth)))
         let finalScore = GameRules.score(didWin: win, defeated: defeated, remaining: remaining)
         let reward = GameRules.reward(didWin: win, killCoins: killCoins, remaining: remaining)
-        let result = RunResult(didWin: win, score: finalScore, coinsEarned: reward, enemiesDefeated: defeated, squadRemaining: remaining)
+        let result = RunResult(
+            didWin: win,
+            score: finalScore,
+            coinsEarned: reward,
+            killCoinsEarned: killCoins,
+            survivalCoins: remaining,
+            completionBonus: win ? 35 : 12,
+            enemiesDefeated: defeated,
+            squadRemaining: remaining
+        )
         notify(win ? .success : .error)
         onFinished?(result)
     }

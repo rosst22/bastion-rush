@@ -55,7 +55,7 @@ final class PlayerProgress {
         )
     }
 
-    var startingSquad: Int { 8 + squadLevel * 2 }
+    var startingSquad: Int { 9 + squadLevel * 2 }
     var damagePerSecond: Double { 5.2 + Double(firepowerLevel) * 1.35 }
     var damageResistance: Double { min(0.45, Double(armorLevel) * 0.07) }
 
@@ -155,6 +155,9 @@ struct RunResult: Equatable {
     let didWin: Bool
     let score: Int
     let coinsEarned: Int
+    let killCoinsEarned: Int
+    let survivalCoins: Int
+    let completionBonus: Int
     let enemiesDefeated: Int
     let squadRemaining: Int
 }

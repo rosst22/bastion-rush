@@ -21,6 +21,8 @@ struct GameView: View {
     @State private var didRecordResult = false
     @State private var runID = UUID()
     @State private var sceneSize: CGSize = .zero
+    @State private var levelNumber = 1
+    @State private var isPaused = false
 
     var body: some View {
         GeometryReader { proxy in
@@ -54,6 +56,15 @@ struct GameView: View {
                     ResultCard(result: result, onReplay: restart, onHome: { dismiss() })
                         .padding(24)
                         .transition(.scale.combined(with: .opacity))
+                } else if isPaused {
+                    Color.black.opacity(0.68).ignoresSafeArea()
+                    PauseCard(
+                        onResume: resume,
+                        onRestart: restart,
+                        onHome: { dismiss() }
+                    )
+                    .padding(24)
+                    .transition(.scale.combined(with: .opacity))
                 }
             }
             .onAppear {
@@ -72,11 +83,13 @@ struct GameView: View {
     private var gameHUD: some View {
         VStack(spacing: 9) {
             HStack {
-                Button { dismiss() } label: {
+                Button { pause() } label: {
                     Image(systemName: "pause.fill")
                         .frame(width: 42, height: 42)
                         .background(.black.opacity(0.36), in: Circle())
                 }
+                .accessibilityLabel("Pause Level")
+                .accessibilityIdentifier("pauseLevelButton")
                 Spacer()
                 Label("\(hud.squadCount)", systemImage: "person.3.fill")
                     .font(.headline.weight(.heavy))
@@ -92,6 +105,13 @@ struct GameView: View {
                 .tint(hud.bossHealthFraction == nil ? AppTheme.cyan : AppTheme.coral)
                 .background(.white.opacity(0.14))
                 .clipShape(Capsule())
+            HStack {
+                Text("LEVEL \(levelNumber)")
+                Spacer()
+                Text(hud.bossHealthFraction == nil ? "ADVANCE TO FORTRESS" : "FINAL FIGHT")
+            }
+            .font(.system(size: 9, weight: .black, design: .rounded))
+            .foregroundStyle(.white.opacity(0.55))
             if let boss = hud.bossHealthFraction {
                 Text("FORTRESS  \(Int(boss * 100))%")
                     .font(.caption2.weight(.black))
@@ -102,6 +122,12 @@ struct GameView: View {
                     .font(.system(size: 10, weight: .black, design: .rounded))
                     .foregroundStyle(hud.targetAligned ? AppTheme.gold : .white.opacity(0.56))
             }
+        }
+        .padding(12)
+        .background(.black.opacity(0.42), in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+        .overlay {
+            RoundedRectangle(cornerRadius: 18, style: .continuous)
+                .stroke(.white.opacity(0.10), lineWidth: 1)
         }
         .foregroundStyle(.white)
     }
@@ -143,6 +169,7 @@ struct GameView: View {
                 ? true
                 : UserDefaults.standard.bool(forKey: "hapticsEnabled")
         )
+        levelNumber = config.level + 1
         let newScene = BattleScene(size: size, configuration: config)
         newScene.onHUDChange = { update in hud = update }
         newScene.onFinished = { finished in
@@ -157,10 +184,58 @@ struct GameView: View {
     private func restart() {
         scene?.onHUDChange = nil
         scene?.onFinished = nil
+        scene?.isPaused = false
+        isPaused = false
         didRecordResult = false
         runID = UUID()
         createScene(size: sceneSize == .zero ? UIScreen.main.bounds.size : sceneSize)
         withAnimation(.easeOut(duration: 0.18)) { result = nil }
+    }
+
+    private func pause() {
+        guard result == nil else { return }
+        scene?.isPaused = true
+        withAnimation(.easeOut(duration: 0.18)) { isPaused = true }
+    }
+
+    private func resume() {
+        scene?.isPaused = false
+        withAnimation(.easeOut(duration: 0.18)) { isPaused = false }
+    }
+}
+
+private struct PauseCard: View {
+    let onResume: () -> Void
+    let onRestart: () -> Void
+    let onHome: () -> Void
+
+    var body: some View {
+        VStack(spacing: 18) {
+            Image(systemName: "pause.circle.fill")
+                .font(.system(size: 48, weight: .black))
+                .foregroundStyle(AppTheme.cyan)
+            VStack(spacing: 5) {
+                Text("LEVEL PAUSED").font(.title2.weight(.black))
+                Text("Your progress in this run is waiting.")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
+            Button(action: onResume) {
+                Label("Continue", systemImage: "play.fill")
+                    .font(.headline.weight(.heavy))
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 14)
+            }
+            .accessibilityIdentifier("continueLevelButton")
+            .buttonStyle(.plain)
+            .background(AppTheme.cobalt, in: RoundedRectangle(cornerRadius: 16))
+            Button("Restart Level", action: onRestart)
+                .font(.subheadline.weight(.bold))
+            Button("Leave Level", action: onHome)
+                .font(.subheadline.weight(.bold))
+                .foregroundStyle(.secondary)
+        }
+        .gamePanel()
     }
 }
 
@@ -177,7 +252,7 @@ private struct ResultCard: View {
             VStack(spacing: 5) {
                 Text(result.didWin ? "FORTRESS BROKEN" : "LINE LOST")
                     .font(.title2.weight(.black))
-                Text(result.didWin ? "Your squad held the line." : "Upgrade, regroup, and push again.")
+                Text(result.didWin ? "Next level unlocked." : "Keep your coins, upgrade, and try again.")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
@@ -186,6 +261,9 @@ private struct ResultCard: View {
                 stat("DEFEATED", "\(result.enemiesDefeated)")
                 stat("COINS", "+\(result.coinsEarned)")
             }
+            Text("Kills +\(result.killCoinsEarned)  •  Squad +\(result.survivalCoins)  •  \(result.didWin ? "Victory" : "Run") +\(result.completionBonus)")
+                .font(.caption2.weight(.bold))
+                .foregroundStyle(.secondary)
             Button(action: onReplay) {
                 Label("Run It Back", systemImage: "arrow.clockwise")
                     .font(.headline.weight(.heavy))

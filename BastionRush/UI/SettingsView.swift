@@ -19,6 +19,11 @@ struct SettingsView: View {
                     helpRow("bolt.fill", "Use Rally when charged for a wider lane and faster fire.")
                     helpRow("shield.lefthalf.filled", "Align with the fortress weak point to finish the run.")
                 }
+                Section("Enemy Intel") {
+                    helpRow("hare.fill", "Scouts move and shoot quickly. Defeat one for 3 coins.")
+                    helpRow("shield.fill", "Guards are slower, tougher defenders worth 5 coins.")
+                    helpRow("flame.fill", "Brutes are large monsters with high health, worth 10 coins.")
+                }
                 Section("Game") {
                     Toggle(isOn: $hapticsEnabled) { Label("Haptics", systemImage: "waveform") }
                     LabeledContent("Version", value: appVersion)

@@ -20,6 +20,8 @@ A portrait, one-thumb squad tactics game for iPhone. Steer a growing platoon thr
 - Shots only connect inside the visible firing lane, making positioning matter.
 - Enemy projectiles and mines are telegraphed, dodgeable threats.
 - Riflemen, scouts, shield troops, and late-run brutes create readable difficulty as levels advance.
+- Procedural walk cycles give every squad and defender an animated marching silhouette; brutes use a separate monster model.
+- Clear level goals, enemy intel, reward breakdowns, and a real in-level pause menu.
 - Every defeated troop drops visible coins; tougher defenders are worth more.
 - Rally is a player-triggered ability with a real cooldown and tactical timing.
 - Runs earn persistent upgrades without requiring a purchase.

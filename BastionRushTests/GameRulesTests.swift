@@ -52,6 +52,8 @@ struct GameRulesTests {
         #expect(recruit.fortressHealth < veteran.fortressHealth)
         #expect(recruit.baseFireLaneWidth > veteran.baseFireLaneWidth)
         #expect(recruit.projectileDamage < veteran.projectileDamage)
+        #expect(recruit.hazardDamage < veteran.hazardDamage)
+        #expect(recruit.contactDamagePerSecond < veteran.contactDamagePerSecond)
         #expect(recruit.shooterStride > veteran.shooterStride)
         #expect(recruit.isRecruitRun)
         #expect(!veteran.isRecruitRun)

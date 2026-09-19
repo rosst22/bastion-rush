@@ -70,8 +70,10 @@ struct HomeView: View {
             VStack(spacing: 4) {
                 Text("LEVEL \(progress.wins + 1)")
                     .font(.caption.weight(.black)).foregroundStyle(AppTheme.cyan).tracking(1.8)
-                Text(progress.wins == 0 ? "Hold the line." : "The enemy adapted. So did you.")
-                    .font(.subheadline).foregroundStyle(.secondary)
+                Text("Defeat defenders, collect coins, break the fortress.")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
             }
         }
     }
@@ -81,9 +83,7 @@ struct HomeView: View {
             ForEach(0..<9, id: \.self) { index in
                 let row = index / 3
                 let column = index % 3
-                Image(systemName: "person.crop.circle.fill")
-                    .font(.system(size: 39, weight: .bold))
-                    .foregroundStyle(index == 1 ? AppTheme.gold : AppTheme.cobalt)
+                MannequinFigure(color: index == 1 ? AppTheme.gold : AppTheme.cobalt)
                     .shadow(color: .black.opacity(0.45), radius: 3, y: 5)
                     .offset(x: CGFloat(column - 1) * 47, y: CGFloat(row - 1) * 43)
             }
@@ -98,8 +98,8 @@ struct HomeView: View {
             HStack(spacing: 12) {
                 Image(systemName: "play.fill").font(.title2)
                 VStack(alignment: .leading, spacing: 1) {
-                    Text("START RUN").font(.title3.weight(.black))
-                    Text("One thumb · about 35 seconds").font(.caption).opacity(0.72)
+                    Text("PLAY LEVEL \(progress.wins + 1)").font(.title3.weight(.black))
+                    Text("Choose boosts • dodge shots • destroy fortress").font(.caption).opacity(0.72)
                 }
                 Spacer()
                 Image(systemName: "chevron.right").font(.headline.weight(.black))
@@ -185,5 +185,24 @@ struct HomeView: View {
             }
         }
         .allowsHitTesting(false)
+    }
+}
+
+private struct MannequinFigure: View {
+    let color: Color
+
+    var body: some View {
+        ZStack {
+            Capsule().fill(color).frame(width: 7, height: 24).rotationEffect(.degrees(8)).offset(x: -10, y: 3)
+            Capsule().fill(color).frame(width: 7, height: 24).rotationEffect(.degrees(-8)).offset(x: 10, y: 3)
+            Capsule().fill(color).frame(width: 8, height: 24).offset(x: -5, y: 20)
+            Capsule().fill(color).frame(width: 8, height: 24).offset(x: 5, y: 20)
+            RoundedRectangle(cornerRadius: 7, style: .continuous)
+                .fill(color)
+                .frame(width: 24, height: 28)
+                .offset(y: 3)
+            Circle().fill(color).frame(width: 20, height: 20).offset(y: -19)
+        }
+        .frame(width: 42, height: 58)
     }
 }
