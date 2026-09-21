@@ -5,7 +5,11 @@ struct RootView: View {
 
     var body: some View {
         #if DEBUG
-        if ProcessInfo.processInfo.arguments.contains("-launchGame") {
+        if ProcessInfo.processInfo.arguments.contains("-launchPaywall") {
+            PaywallView()
+        } else if ProcessInfo.processInfo.arguments.contains("-launchArmory") {
+            ArmoryView()
+        } else if ProcessInfo.processInfo.arguments.contains("-launchGame") {
             GameView()
         } else if ProcessInfo.processInfo.arguments.contains("-skipOnboarding") {
             HomeView()

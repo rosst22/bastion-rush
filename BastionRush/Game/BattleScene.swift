@@ -5,6 +5,7 @@ import UIKit
 final class BattleScene: SKScene {
     #if DEBUG
     private static var hasUsedDebugInstantDefeat = false
+    private static var hasUsedDebugInstantVictory = false
     #endif
     var onHUDChange: ((BattleHUD) -> Void)?
     var onFinished: ((RunResult) -> Void)?
@@ -176,6 +177,16 @@ final class BattleScene: SKScene {
         elapsed += delta
 
         #if DEBUG
+        if ProcessInfo.processInfo.arguments.contains("-instantVictory"),
+           !Self.hasUsedDebugInstantVictory,
+           elapsed > 0.6 {
+            Self.hasUsedDebugInstantVictory = true
+            defeated = 12
+            killCoins = 30
+            score = 1_680
+            finish(win: true)
+            return
+        }
         if ProcessInfo.processInfo.arguments.contains("-instantDefeat"),
            !Self.hasUsedDebugInstantDefeat,
            elapsed > 0.6 {
