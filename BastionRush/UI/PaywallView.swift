@@ -80,7 +80,7 @@ struct PaywallView: View {
     }
 
     private var displayPrice: String {
-        purchases.package?.storeProduct.localizedPriceString ?? "$3.99"
+        purchases.package?.storeProduct.localizedPriceString ?? "$2.99"
     }
 
     private func perk(_ symbol: String, _ text: String, _ color: Color) -> some View {
