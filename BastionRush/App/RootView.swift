@@ -5,7 +5,8 @@ struct RootView: View {
 
     var body: some View {
         #if DEBUG
-        if ProcessInfo.processInfo.arguments.contains("-launchPaywall") {
+        if ProcessInfo.processInfo.arguments.contains("-launchPaywall")
+            || ProcessInfo.processInfo.arguments.contains("-captureReviewPaywall") {
             PaywallView()
         } else if ProcessInfo.processInfo.arguments.contains("-launchArmory") {
             ArmoryView()

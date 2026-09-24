@@ -45,7 +45,10 @@ struct PaywallView: View {
                             .frame(maxWidth: .infinity).padding(.vertical, 16)
                             .background(AppTheme.gold.opacity(0.12), in: RoundedRectangle(cornerRadius: 18))
                     } else {
-                        Button { Task { await purchases.purchase() } } label: {
+                        Button {
+                            guard !isReviewCapture else { return }
+                            Task { await purchases.purchase() }
+                        } label: {
                             HStack {
                                 if purchases.isLoading { ProgressView().tint(.white) }
                                 Text("Unlock Forever — \(displayPrice)")
@@ -55,10 +58,10 @@ struct PaywallView: View {
                             .background(AppTheme.cobalt, in: RoundedRectangle(cornerRadius: 18))
                         }
                         .buttonStyle(.plain)
-                        .disabled(purchases.isLoading || purchases.package == nil)
+                        .disabled(purchases.isLoading || (purchases.package == nil && !isReviewCapture))
                     }
 
-                    if let message = purchases.message {
+                    if let message = purchases.message, !isReviewCapture {
                         Text(message)
                             .font(.caption).foregroundStyle(.secondary).multilineTextAlignment(.center)
                     }
@@ -81,6 +84,14 @@ struct PaywallView: View {
 
     private var displayPrice: String {
         purchases.package?.storeProduct.localizedPriceString ?? "$2.99"
+    }
+
+    private var isReviewCapture: Bool {
+        #if DEBUG
+        ProcessInfo.processInfo.arguments.contains("-captureReviewPaywall")
+        #else
+        false
+        #endif
     }
 
     private func perk(_ symbol: String, _ text: String, _ color: Color) -> some View {
